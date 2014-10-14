@@ -1,1 +1,3 @@
-Recreating the classic game, space invaders
+@author Deonte D Johnson
+
+Recreating the classic video game, space invaders.
