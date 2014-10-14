@@ -1,0 +1,60 @@
+
+PROBLEMS DURING DEVELOPMENT
+
+1.) Missile remains drawn once it hits a target
+
+2.) When moving collision check from the move() method in the missile entity class to another class, 
+a null exception is thrown when starting the game. classes that may be contributing to this issue: 
+MissileEntity & ShipEntity.
+
+who is throwing the exception?
+--the missile entity is throwing the null exception.
+
+why is the null exception being thrown?
+--Once the missile is created, in the missile entity default constructor the missile collision object
+accesses the collision list, but the default constructor is never called, so the collision missile field
+is never initialized.
+
+3.) Getting a concurrentModification exception when missile hit target.
+
+who is throwing the exception?
+The acceptAll() method in the entity manager class is throwing the exception.
+
+why is the concurentModification exception being thrown?
+The exception is being thrown because there are too many non-permissible modifications occuring within 
+the list to the missile entity.
+
+4.) When missile collides with squid entity, more than one squid is removed.
+
+possible classes involved: Squid entity & Missile Entity
+
+additional info: Missile Entity has a default constructor that is used in order to make 
+draw & fire not return null(one in the chamber so to speak)
+
+SOLUTIONS(each solution is associated with a problem by number)
+
+1.) Allow the ShipEntity to control missile fire. When the ship fires a missile it will initialize 
+the static "loaded" field to true. the missile entity will use this static field to determine when 
+to move/draw the missile on screen. 
+
+2.) removed the default constructor from the missile entity class. The default constructor attempts to
+access a collision missile from the collision manager list. The default constructor is never called to 
+the collision missile field is never initialized and access to the getEntity() method, that is located in
+the missile entity class, causes a null exception to be thrown.
+
+3.) I changed the current entity manager list field into an array, along with the visitor argument which
+is also a linked list. I iterated through both arrays and accepted each visitor.
+
+4. I removed the missile entity's default constructor, the default constructor which was called in 
+the Content class was causing residual effects. all missile resources are loaded and used in the
+missile entity class.
+
+PATTERNS USED: (what patterns? how/where were they used? did they solve any issues?)
+
+--Factory
+--Abstract Factory:
+--Singleton:
+--Visitor:
+--Mediator:
+
+				
