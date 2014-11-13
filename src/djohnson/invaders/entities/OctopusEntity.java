@@ -254,13 +254,6 @@ public class OctopusEntity extends AlienUser implements Entity {
 		}
 	}
 	
-	private static class Octopus {
-		static BoundingBox entity;
-		static boolean killed = false;
-	}
-	
-	private Octopus[] _octopus;
-	////////////////////////////////
 	private GameSprite[] sprite;
 	private int currentFrame = 0;
 	private BoundingBox[] newOctopus;
